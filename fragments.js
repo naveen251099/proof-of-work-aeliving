@@ -13,56 +13,52 @@ async function includeFragment(path, selector) {
   }
   
   document.addEventListener('DOMContentLoaded', async () => {
-    // 1) inject header + footer
     await includeFragment('header.html', '#site-header');
     await includeFragment('footer.html', '#site-footer');
   
-    // header / hero behaviour (unchanged logic)
     const header = document.querySelector('#site-header header') || document.querySelector('header');
+    const filters = document.querySelector('.filters');
     const hero = document.querySelector('.hero');
-    if (header && hero) {
+  
+    if (header && hero && filters) {
       function updateHeaderHeightVar() {
         const h = header.offsetHeight || 90;
         document.documentElement.style.setProperty('--header-height', `${h}px`);
         return h;
       }
       updateHeaderHeightVar();
-      function calculateThresholds() {
-        const heroTop = hero.offsetTop;
-        const heroHeight = hero.offsetHeight;
-        return {
-          start: heroTop + heroHeight * 0.25,
-          end: heroTop + heroHeight
-        };
-      }
-      let { start: startA, end: endC } = calculateThresholds();
-      window.addEventListener('resize', () => {
-        updateHeaderHeightVar();
-        ({ start: startA, end: endC } = calculateThresholds());
-        checkScroll();
-      });
+  
+      const heroHeight = hero.offsetHeight;
   
       function checkScroll() {
         const y = window.scrollY || window.pageYOffset;
-        if (y < startA) {
-          header.style.transform = `translateY(0)`;
-          header.classList.remove('scrolled');
+  
+        // Header
+        if (y < heroHeight) {
           header.classList.add('transparent-header-text');
-        } else if (y >= startA && y < endC) {
-          const progress = (y - startA) / (endC - startA);
-          const translateY = -progress * 100;
-          header.style.transform = `translateY(${translateY}%)`;
-          header.classList.remove('scrolled', 'transparent-header-text');
+          header.classList.remove('scrolled');
         } else {
-          header.style.transform = `translateY(0)`;
           header.classList.remove('transparent-header-text');
           header.classList.add('scrolled');
         }
+  
+        // Filters
+        if (y >= heroHeight) {
+          filters.classList.add('active');
+        } else {
+          filters.classList.remove('active');
+        }
       }
+  
       checkScroll();
       window.addEventListener('scroll', checkScroll);
+      window.addEventListener('resize', () => {
+        updateHeaderHeightVar();
+        checkScroll();
+      });
     }
-  
+
+
     // =========================
     // Carousel: snap + infinite
     // =========================
