@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <meta charset="UTF-8" />
   <title>aeliving - Products</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,7 +9,17 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
+    <div id="loader">
+        <div class="loader-bg"></div>
+        <lottie-player
+          id="page-loader"
+          src="image/loader.json"
+          background="transparent"
+          speed="1"
+          style="width: 180px; height: 180px;"
+        ></lottie-player>
+      </div>                        
+      
     <!-- header fragment will be injected here -->
     <div id="site-header"></div>
 

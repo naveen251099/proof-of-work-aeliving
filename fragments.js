@@ -214,3 +214,24 @@ function waitForImages(node) {
     });
   });
   
+  window.addEventListener("DOMContentLoaded", () => {
+    const loader = document.getElementById("loader");
+    const player = document.getElementById("page-loader");
+  
+    if (loader && player) {
+      player.addEventListener("load", () => {
+        player.play(); // start only once ready
+      });
+  
+      player.addEventListener("complete", () => {
+        player.pause(); // freeze last frame
+        setTimeout(() => {
+          loader.classList.add("hidden");
+          document.body.classList.add("loaded");
+        }, 600); // allow last frame to breathe
+      });
+    }
+  });    
+  
+  
+  

@@ -22,6 +22,35 @@
     color: #222;
     background: #fff;
   }
+
+  #loader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+  }
+  
+  #loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  
+  #loader .loader-bg {
+    position: absolute;
+    inset: 0;
+    background: #fff; /* luxury white background */
+    z-index: 1;
+  }
+  
+  #loader lottie-player {
+    z-index: 2; /* sit above background */
+  }  
   
   /* =========================
      Header color states
