@@ -76,4 +76,31 @@ async function includeFragment(path, selector) {
     window.addEventListener('scroll', checkScroll);
     window.addEventListener('resize', checkScroll);
   });
-  
+  // =========================
+  // Carousel Scroll Logic
+  // =========================
+  const carousels = document.querySelectorAll('.carousel-section');
+  carousels.forEach(section => {
+    const container = section.querySelector('.carousel-container');
+    const track = section.querySelector('.carousel-track');
+    const leftArrow = section.querySelector('.carousel-arrow.left');
+    const rightArrow = section.querySelector('.carousel-arrow.right');
+
+    function updateArrows() {
+      const maxScroll = track.scrollWidth - container.clientWidth;
+      leftArrow.classList.toggle('hidden', container.scrollLeft <= 0);
+      rightArrow.classList.toggle('hidden', container.scrollLeft >= maxScroll - 5);
+    }
+
+    leftArrow.addEventListener('click', () => {
+      container.scrollBy({ left: -320, behavior: 'smooth' });
+    });
+    rightArrow.addEventListener('click', () => {
+      container.scrollBy({ left: 320, behavior: 'smooth' });
+    });
+
+    container.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+
+    updateArrows(); // initial
+  });
