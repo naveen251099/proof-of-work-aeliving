@@ -211,20 +211,28 @@
    .product-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px; /* reduced gap between cards */
+    column-gap: 12px;   /* horizontal spacing */
+    row-gap: 40px;      /* vertical spacing between rows */
     margin: 0 auto 80px auto;
     max-width: var(--container-max-width);
     padding: 0 var(--container-side-padding);
-  }
+  }  
   
   .product-card {
-    position: relative;
     text-align: left;
     background: #fff;
-    cursor: pointer;
-    overflow: hidden; /* contain absolute positioned imgs */
+    cursor: default; /* no pointer on entire card */
   }
-
+  
+  /* wrapper for hover swap */
+  .product-card .image-wrapper {
+    position: relative;
+    width: 100%;
+    cursor: pointer; /* pointer only over image */
+    overflow: hidden;
+  }
+  
+  /* default image */
   .product-card img.default-img {
     width: 100%;
     height: auto;
@@ -232,61 +240,39 @@
     position: relative;
     z-index: 1;
     transition: opacity 0.5s ease;
-  }
-
-  .product-card img.hover-img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    z-index: 2;
-    transition: opacity 0.5s ease;
+    border: none;
+    outline: none;
+    border-radius: 0; /* clean edge */
   }
   
-  .product-card .hover-img {
-    transition: opacity 0.5s ease, transform 1s ease;
-  }
-  
-  .product-card:hover .hover-img {
-    opacity: 1;
-    /*transform: scale(1.05); /* subtle zoom */
-  }  
-  
-  /* Product images with hover swap */
-  .product-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border: none;        /* remove any border */
-    outline: none;       /* remove outline */
-    border-radius: 0;    /* clean edge */
-  }
-  
+  /* hover image */
   .product-card img.hover-img {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 0.4s ease;
+    z-index: 2;
+    transition: opacity 0.5s ease;
+    border: none;
+    outline: none;
+    border-radius: 0;
   }
   
-  .product-card:hover img.hover-img {
+  /* swap images only when hovering image wrapper */
+  .product-card .image-wrapper:hover .hover-img {
     opacity: 1;
   }
-  .product-card:hover img.default-img {
+  .product-card .image-wrapper:hover .default-img {
     opacity: 0;
   }
   
   /* Text styles */
   .product-card h3 {
     font-size: 16px;
-    font-weight: 600; /* bold */
+    font-weight: 600;
     color: #111;
-    margin: 12px 0 4px;
+    margin: 6px 0 2px; /* tighter spacing below image */
   }
   
   .product-card .designer {
@@ -300,7 +286,8 @@
     font-size: 13px;
     font-weight: 400;
     color: #111;
-  }    
+  }
+    
 /* =========================
    Category Carousel (updated)
    ========================= */
