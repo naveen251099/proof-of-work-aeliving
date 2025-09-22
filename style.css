@@ -233,6 +233,10 @@
     color: #444;
     font-weight: 400;
   }
+  .filters {
+    display: none !important;
+  }
+  
   
 /* =========================
    Product Grid (Refined)
@@ -316,6 +320,31 @@
     font-weight: 400;
     color: #111;
   }
+
+  /* About Section */
+.about {
+    max-width: var(--container-max-width);
+    margin: 80px auto;
+    padding: 0 var(--container-side-padding);
+    text-align: center;
+  }
+  
+  .about h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #111;
+    letter-spacing: 1px;
+  }
+  
+  .about p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #444;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
     
 /* =========================
    Category Carousel (updated)
